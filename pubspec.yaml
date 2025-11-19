@@ -1,7 +1,10 @@
 name: auto_refresh_on_reconnect
 description: A lightweight Flutter package that automatically refreshes widgets when internet connection is restored.
 version: 0.1.0
-homepage: https://github.com/yourusername/auto_refresh_on_reconnect
+homepage: https://github.com/Sourav-Sonkar/auto_refresh_on_reconnect
+repository: https://github.com/Sourav-Sonkar/auto_refresh_on_reconnect
+issue_tracker: https://github.com/Sourav-Sonkar/auto_refresh_on_reconnect/issues
+documentation: https://github.com/Sourav-Sonkar/auto_refresh_on_reconnect/blob/main/README.md
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
