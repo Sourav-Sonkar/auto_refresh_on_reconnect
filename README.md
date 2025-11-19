@@ -2,6 +2,12 @@
 
 A lightweight Flutter package that automatically refreshes widgets when internet connection is restored — without requiring developers to manually manage network listeners or rebuild the UI.
 
+## Demo
+
+![Demo](assets/example.gif)
+
+*Automatic refresh when internet connection is restored*
+
 ## Features
 
 ✅ Automatic refresh on internet reconnection  
@@ -106,27 +112,43 @@ AutoRefreshOnReconnectBuilder<List<Product>>(
     return Center(child: Text('No data'));
   },
   offlineBuilder: (context) => Center(
-    child: Text('Offline - waiting for connection...'),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(Icons.wifi_off, size: 64),
+        SizedBox(height: 16),
+        Text('Offline - will refresh when reconnected'),
+      ],
+    ),
   ),
 )
 ```
 
-## How It Works
+## Additional Information
 
-### Connectivity Detection
+### Platform Support
 
-The package uses `connectivity_plus` to monitor network connectivity changes. However, it goes beyond simple connectivity checks by performing actual HTTP HEAD requests to verify real internet access.
+- ✅ Android
+- ✅ iOS
+- ✅ Web
+- ✅ macOS
+- ✅ Windows
+- ✅ Linux
 
-### Reconnection Flow
+### How It Works
 
-1. **Connection Lost**: When internet is lost, the widget optionally displays the `offlineBuilder` UI
-2. **Connection Restored**: When connectivity returns, the package verifies actual internet access
-3. **Debounced Refresh**: After the debounce duration, `onRefresh` is triggered automatically
-4. **UI Update**: The widget rebuilds with fresh data
+1. **Connectivity Monitoring**: Uses `connectivity_plus` to monitor network state changes
+2. **Real Internet Verification**: Performs HTTP HEAD requests to verify actual internet access
+3. **Debouncing**: Prevents rapid successive refresh calls during unstable connections
+4. **Automatic Refresh**: Triggers your callback when connection is restored after being offline
 
-### Debouncing
+### Contributing
 
-To prevent rapid re-triggers during unstable connections, the package debounces reconnection events. The default debounce duration is 2 seconds, but you can customize it.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+### License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 
 ## Customization Options
@@ -214,6 +236,25 @@ On mobile (iOS/Android) and desktop (macOS/Windows/Linux) platforms:
 | `debounceDuration` | `Duration` | `Duration(seconds: 2)` | Debounce duration |
 | `connectivityService` | `ConnectivityService?` | `null` | Custom connectivity service |
 
+
+## Example
+
+A complete example app is available in the `example/` directory, demonstrating:
+
+- Real API calls with JSONPlaceholder
+- Both widget and builder APIs
+- Custom offline UI with loading states
+- Navigation between different screens
+- Error handling and refresh counters
+
+To run the example:
+
+```bash
+cd example
+flutter run
+```
+
+See the [example README](example/README.md) for detailed instructions.
 
 ## Testing
 
@@ -352,29 +393,5 @@ class ProductScreen extends ConsumerWidget {
   }
 }
 ```
-
-## Requirements
-
-- Flutter SDK: >=3.0.0
-- Dart SDK: >=3.0.0 <4.0.0
-
-## Dependencies
-
-- [connectivity_plus](https://pub.dev/packages/connectivity_plus): ^6.0.5
-- [http](https://pub.dev/packages/http): ^1.2.2
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Author
-
-Created with ❤️ by the Flutter community
-
-## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
